@@ -23,9 +23,9 @@ class App extends Component {
   }
 
   filterThis(){
-    const filteredResults = this.state.results.filter(item =>{
+    const filteredResults = this.state.results.filter(item => {
       const fullName = `${item.name.first} ${item.name.last}`;
-      if (fullName.includes(this.state.query)) {
+      if (fullName.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())) {
         return true;
       } else {
         return false;
