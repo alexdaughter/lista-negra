@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {getPersons} from './services/personService';
+import Filter from './components/Filter';
 
 
 class App extends Component {
@@ -68,10 +69,7 @@ class App extends Component {
       <div className="App">
       <header className="app__header">
         <h1 className="app__title">Lista negra de empleados</h1>
-        <div className="app__filter">
-          <input type="text" className="app__filter-full-name"placeholder="Busca el culpable" onKeyUp={this.getQuery}/>
-        
-        </div>
+       <Filter keyUpAction={this.getQuery} />
       </header>  
         <ul className="app__list">
           {blackResults.map(item => {
