@@ -9,11 +9,30 @@ class App extends Component {
     super(props);
 
     this.state = {
+      query: '',
       results: this.getSavedData()
     }
+    this.getQuery= this.getQuery.bind(this);
+  }
 
-    
+  getQuery(e){
+    const userQuery = e.currentTarget.value;
+    this.setState ({
+      query: userQuery
+    })
+  }
 
+  filterThis(){
+    const filteredResults = this.state.results.filter(item =>{
+      const fullName = `${item.name.first} ${item.name.last}`;
+      if (fullName.includes(this.state.query)) {
+        return true;
+      } else {
+        return false;
+      }
+      // return (fullName.includes(this.state.query)) ? true : false
+    });
+    return filteredResults;
   }
 
   getSavedData(){
@@ -44,11 +63,18 @@ class App extends Component {
   }
  
   render() {
+    const blackResults= this.filterThis();
     return (
       <div className="App">
+      <header className="app__header">
         <h1 className="app__title">Lista negra de empleados</h1>
+        <div className="app__filter">
+          <input type="text" className="app__filter-full-name"placeholder="Busca el culpable" onKeyUp={this.getQuery}/>
+        
+        </div>
+      </header>  
         <ul className="app__list">
-          {this.state.results.map(item => {
+          {blackResults.map(item => {
             return (
               <li className="app__list-item" key={item.id}>
                 <div className="person">
