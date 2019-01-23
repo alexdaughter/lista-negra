@@ -9,10 +9,25 @@ class App extends Component {
     super(props);
 
     this.state = {
-      results: []
+      results: this.getSavedData()
     }
-    this.getCriatutas();
 
+    
+
+  }
+
+  getSavedData(){
+    const blackData = localStorage.getItem('blackData');
+    if (blackData !== null){
+      return JSON.parse(blackData);
+    }else{
+      this.getCriatutas();
+      return[]
+    }
+  }
+
+  saveData(data){
+    localStorage.setItem('blackData', JSON.stringify(data));
   }
 
   getCriatutas(){
@@ -24,11 +39,10 @@ class App extends Component {
         this.setState({
           results: cleanData
         })
+        this.saveData(cleanData);
       });
   }
-
-  
-
+ 
   render() {
     return (
       <div className="App">
